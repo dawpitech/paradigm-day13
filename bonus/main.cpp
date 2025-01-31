@@ -10,6 +10,7 @@
 #include "Algorithm.hpp"
 #include "Array.hpp"
 #include "Command.hpp"
+#include "SharedPointer.hpp"
 #include "Stack.hpp"
 #include "UniquePointer.hpp"
 
@@ -113,18 +114,25 @@ int main_ex04()
     try
     {
         command.registerCommand("push", [&stack]() { stack.push(4.2); });
-        command.registerCommand("display", [&stack]() { std::cout << stack.top() << std::
-                endl; });
+        command.registerCommand("display", [&stack]()
+        {
+            std::cout << stack.top() << std::
+                endl;
+        });
         command.registerCommand("add", [&stack]() { stack.add(); });
         command.registerCommand("sub", [&stack]() { stack.sub(); });
         command.registerCommand("mul", [&stack]() { stack.mul(); });
         command.registerCommand("div", [&stack]() { stack.div(); });
-        command.registerCommand("display", []() {});
+        command.registerCommand("display", []()
+        {
+        });
     }
-    catch (const std::exception& e) {
+    catch (const std::exception& e)
+    {
         std::cout << e.what() << std::endl;
     }
-    try {
+    try
+    {
         command.executeCommand("push");
         command.executeCommand("push");
         command.executeCommand("push");
@@ -133,9 +141,36 @@ int main_ex04()
         command.executeCommand("display");
         command.executeCommand("nau");
     }
-    catch (const std::exception& e) {
+    catch (const std::exception& e)
+    {
         std::cout << e.what() << std::endl;
     }
+    return 0;
+}
+
+void test_ex05()
+{
+    int* ptr = new int(42);
+    SharedPointer<int> ptr1(ptr); // ptr is now owned by ptr1
+    SharedPointer<int> ptr2; // ptr2 hold a nullptr
+    SharedPointer<int> ptr3(ptr1); // ptr is now owned by both ptr1 and ptr3
+
+    ptr2 = ptr1; // ptr is now owned by both ptr1 , ptr2 and ptr3
+    ptr1 = new int(84); // ptr is now owned by ptr2 and ptr3 , ptr1 hold a new pointer
+    ptr2.reset(); // ptr is now owned by ptr3 only
+    ptr3.reset(); // last reference of ptr is dropped , ptr is deleted
+}
+
+int main_ex05()
+{
+    SharedPointer<Example> ptr1(new Example(1));
+    SharedPointer<Example> ptr2(ptr1);
+    SharedPointer<Example> ptr3;
+    ptr1.reset();
+    ptr3 = ptr2;
+    ptr2 = new Example(2);
+    ptr2.get()->method();
+    ptr3->method();
     return 0;
 }
 
@@ -146,5 +181,7 @@ int main()
     //return main_ex02();
     //test_ex03();
     //return main_ex03();
-    return main_ex04();
+    //return main_ex04();
+    test_ex05();
+    return main_ex05();
 }
