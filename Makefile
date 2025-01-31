@@ -16,17 +16,10 @@ CPPFLAGS	+=	-Wshadow
 CPPFLAGS	+=	-Wunreachable-code
 CPPFLAGS	+=	-pedantic
 CPPFLAGS	+=	-iquote .
-CPPFLAGS	+=	-iquote include
 
 BDIR	=	.build/release
 
 SRC	=	bonus/main.cpp
-SRC	+=	IDirectoryLister.cpp
-SRC	+=	DirectoryLister.cpp
-SRC	+=	SafeDirectoryLister.cpp
-SRC	+=	UniquePointer.cpp
-SRC	+=	List.cpp
-SRC	+=	SharedPointer.cpp
 
 OBJ = $(SRC:%.cpp=$(BDIR)/%.o)
 
