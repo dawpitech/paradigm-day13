@@ -37,7 +37,7 @@ class Array
         }
 
     private:
-        std::array<T, Size> _array;
+        std::array<T, Size> _array = {0};
 };
 
 template <typename T, std::size_t Size>
