@@ -20,6 +20,7 @@ CPPFLAGS	+=	-iquote .
 BDIR	=	.build/release
 
 SRC	=	bonus/main.cpp
+SRC	+=	Stack.cpp
 
 OBJ = $(SRC:%.cpp=$(BDIR)/%.o)
 

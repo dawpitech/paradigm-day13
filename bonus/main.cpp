@@ -9,6 +9,7 @@
 
 #include "Algorithm.hpp"
 #include "Array.hpp"
+#include "Stack.hpp"
 
 int main_ex00()
 {
@@ -39,7 +40,9 @@ int main_ex01()
         array[1] = 42;
         array[2] = 84;
         array[3] = 84;
-    } catch (const std::exception& e) {
+    }
+    catch (const std::exception& e)
+    {
         std::cout << e.what() << std::endl;
     }
     std::cout << array << std::endl;
@@ -49,8 +52,27 @@ int main_ex01()
     return 0;
 }
 
+int main_ex02()
+{
+    Stack stack;
+    stack.push(42.21);
+    stack.push(84.42);
+    stack.push(21.12);
+    stack.add();
+    stack.div();
+    try
+    {
+        stack.mul();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+    std::cout << stack.top() << std::endl;
+    return 0;
+}
+
 int main()
 {
     //return main_ex00();
-    return main_ex01();
+    //return main_ex01();
+    return main_ex02();
 }
