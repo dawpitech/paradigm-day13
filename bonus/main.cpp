@@ -9,6 +9,7 @@
 
 #include "Algorithm.hpp"
 #include "Array.hpp"
+#include "Command.hpp"
 #include "Stack.hpp"
 #include "UniquePointer.hpp"
 
@@ -78,10 +79,10 @@ class Example
 private:
     int _id;
 
-    public :
-        Example(int id) : _id(id) { std::cout << "#" << _id << "construction" << std::endl; }
-        ~Example() { std::cout << "#" << _id << "destruction" << std::endl; }
-        void method() const { std::cout << "#" << _id << "method" << std::endl; }
+public :
+    Example(int id) : _id(id) { std::cout << "#" << _id << "construction" << std::endl; }
+    ~Example() { std::cout << "#" << _id << "destruction" << std::endl; }
+    void method() const { std::cout << "#" << _id << "method" << std::endl; }
 };
 
 int main_ex03()
@@ -105,11 +106,45 @@ void test_ex03()
     ptr1 = new int(21); // Old int * is deleted
 }
 
+int main_ex04()
+{
+    Command command;
+    Stack stack;
+    try
+    {
+        command.registerCommand("push", [&stack]() { stack.push(4.2); });
+        command.registerCommand("display", [&stack]() { std::cout << stack.top() << std::
+                endl; });
+        command.registerCommand("add", [&stack]() { stack.add(); });
+        command.registerCommand("sub", [&stack]() { stack.sub(); });
+        command.registerCommand("mul", [&stack]() { stack.mul(); });
+        command.registerCommand("div", [&stack]() { stack.div(); });
+        command.registerCommand("display", []() {});
+    }
+    catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+    try {
+        command.executeCommand("push");
+        command.executeCommand("push");
+        command.executeCommand("push");
+        command.executeCommand("add");
+        command.executeCommand("div");
+        command.executeCommand("display");
+        command.executeCommand("nau");
+    }
+    catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+    return 0;
+}
+
 int main()
 {
     //return main_ex00();
     //return main_ex01();
     //return main_ex02();
-    test_ex03();
-    return main_ex03();
+    //test_ex03();
+    //return main_ex03();
+    return main_ex04();
 }
