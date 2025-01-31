@@ -9,6 +9,7 @@
     #define ARRAY_HPP
 
     #include <functional>
+    #include <stdexcept>
 
 template <typename T, std::size_t Size>
 class Array
